@@ -1,0 +1,54 @@
+.add-consultation{
+    width: 95%;
+    float: right;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+.col-md-6 h5{
+    margin-top: 10px;
+    width: 95%;
+    float: right;
+}
+.col-md-2{
+     height: 110vh;
+}
+.col-md-6 .sentiment-and-emotion{
+    height: 70vh;
+}
+.patient-list table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sentiment-and-emotion .input-group-append{
+    padding-top: 10px;
+}
+.sentiment-and-emotion button.btn-outline-info{
+    clear: both;
+    float: right;
+}
+.analysis-results{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+.text-success { color: #28a745; } /* Green */
+.text-info    { color: #17a2b8; } /* Blue */
+.text-warning { color: #ffc107; } /* Yellow/Orange */
+.text-danger  { color: #dc3545; }
+.emotion-result {
+    margin-left: 17px;
+    padding-left: 17px;
+}
+.sentiment-result{
+    margin-left: 10px;
+    padding-left: 10px;
+}
+.analysis-results h6{
+    margin-left: 15px;
+    padding-left: 15px;
+}
+.analysis-results{
+    display: none;
+}

@@ -1,0 +1,23 @@
+.add-patient{
+    width: 90%;
+    float: right;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+.col-md-5 h5{
+    margin-top: 10px;
+    width: 90%;
+    float: right;
+}
+.col-md-2{
+     height: 110vh;
+}
+.col-md-7 .patient-list{
+    height: 70vh;
+    overflow-y: scroll;
+}
+.patient-list table{
+    width: 100%;
+    border-collapse: collapse;
+}

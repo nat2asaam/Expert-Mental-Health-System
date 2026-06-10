@@ -1,0 +1,48 @@
+.container{
+	max-width:600px;
+	background:white;
+	padding: 20px;
+	border-radius:10px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+	margin: 40px auto;
+}
+.searchContainer{
+	margin:20px 0;
+}
+.inputField{
+	padding:10px;
+	width:97%;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.btn-primary{
+	padding:10px;
+	background: #007bff;
+	color:white;
+	border:none;
+	cursor:pointer;
+	border-radius: 5px;
+	width:97%;
+}
+
+#weatherContainer{
+	display:none;
+}
+#errorMessage{
+	color:red;
+	font-weight: bold;
+}
+#login-form{
+	display:flex;
+	flex-direction: column;
+	width: 500px;
+	margin: auto;
+}
+#login-form ol{
+	list-style-type: none;
+	padding:20px;
+}
+#login-form ol li{
+	float:left;
+	margin-right: 20px;
+}

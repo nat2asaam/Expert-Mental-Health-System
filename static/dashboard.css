@@ -1,0 +1,53 @@
+.col-md-2{
+    background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+    color: white;
+    height: 100vh;
+}
+.col-md-2 .nav-link{
+    color: white;
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.col-md-2 .nav-link:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+.bg-gradient-nav {
+    background: linear-gradient(90deg, #4e73df 0%, #224abe 100%);
+}
+nav .nav-link{
+    color: white;
+}
+.card{
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    height:170px;
+}
+.carousel .card{
+    height:500px;
+}
+.carousel .card .card-text{
+   color: #333;
+}
+.bg-white{
+    background-color: #E5E4E2;
+}
+.bg-default{
+    background-color: #808080;
+}
+.bg-platinium{
+    background-color: #e5e4e2;
+}
+.display-5{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.display-6{
+    font-size: 1.25rem;
+}
+.fixed-top{
+    position: sticky;
+    top: 0;
+}

@@ -1,0 +1,14 @@
+#otp-form{
+	display:flex;
+	flex-direction: column;
+	width: 500px;
+	margin: auto;
+}
+#otp-form ol{
+	list-style-type: none;
+	padding:20px;
+}
+#otp-form ol li{
+	float:left;
+	margin-right: 20px;
+}
