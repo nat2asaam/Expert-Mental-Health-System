@@ -1,3 +1,9 @@
+function titleCase(s) {
+    return s.toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+}
 $(document).ready(function() {
     window.console && console.log('Consultation page loaded');
     var analysisResult="";
@@ -13,6 +19,13 @@ $(document).ready(function() {
                 window.console && console.log(response);
                 analysisResult=response;
                 // Handle the analysis results
+                $('#keyword1').text('');
+                $('#emotion1').text('');
+                $('#sentiment1').text('');
+                $('#keyword2').text('');
+                $('#emotion2').text('');
+                $('#sentiment2').text('');
+                $('.analysis-results').hide();
                 var keywords = response.keywords;
                 keyword1=keywords[0] || 'N/A';
                 keyword2=keywords[1] || 'N/A';
@@ -22,8 +35,8 @@ $(document).ready(function() {
                     $('#emotion1').text('N/A');
                     return;
                 }
-                $('#keyword1').text(keyword1.text);
-                $('#sentiment1').text(keyword1.sentiment.label);
+                $('#keyword1').text(titleCase(keyword1.text));
+                $('#sentiment1').text(titleCase(keyword1.sentiment.label));
                 if(keyword1.sentiment.label=='positive'){
                     $('#sentiment1').removeClass('text-warning').addClass('text-success');
                 } else if(keyword1.sentiment.label=='negative'){
@@ -51,7 +64,7 @@ $(document).ready(function() {
                     emotion1Label="Disgust";
                     currentEmotionValue=emotion1.disgust;
                 }
-                $('#emotion1').text(emotion1Label);
+                $('#emotion1').text(titleCase(emotion1Label));
                 if(emotion1Label=='Joy'){
                     $('#emotion1').removeClass('text-danger').addClass('text-info');
                 }
@@ -62,10 +75,9 @@ $(document).ready(function() {
                     $('#keyword2').text('N/A');
                     $('#sentiment2').text('N/A').removeClass('text-success text-warning'); 
                     $('#emotion2').text('N/A');
-                    return;
                 }    
-                $('#keyword2').text(keyword2.text);
-                $('#sentiment2').text(keyword2.sentiment.label);
+                $('#keyword2').text(titleCase(keyword2.text));
+                $('#sentiment2').text(titleCase(keyword2.sentiment.label));
                 if(keyword2.sentiment.label=='positive'){
                     $('#sentiment2').removeClass('text-warning').addClass('text-success');
                 } else if(keyword2.sentiment.label=='negative'){
@@ -93,14 +105,15 @@ $(document).ready(function() {
                     emotion2Label="Disgust";
                     currentEmotionValue2=emotion2.disgust;
                 }
-                $('#emotion2').text(emotion2Label);
+                $('#emotion2').text(titleCase(emotion2Label));
                 if(emotion2Label=='Joy'){
                     $('#emotion2').removeClass('text-danger').addClass('text-info');
                 }
                 else{
                     $('#emotion2').removeClass('text-info').addClass('text-danger');
                 }
-                $('.analysis-results').show();
+                //$('.analysis-results').show();
+                $('.analysis-results').slideDown(800,'swing',function(){console.log('EOF');});
             }
         });
     }); 

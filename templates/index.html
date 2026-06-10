@@ -7,6 +7,19 @@
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.0.0-dist/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <style>
+        body {
+        /* Steps out of /css/ and into /images/ */
+            background-image: url("{{ url_for('static', filename='images/login-bg.jpg') }}");
+            background-repeat: repeat;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        .container{
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body>
