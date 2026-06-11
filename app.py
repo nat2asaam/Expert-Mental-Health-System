@@ -49,10 +49,10 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         session["otp"]=otp
-        return redirect(url_for('send_otp', email=email))
+        return redirect(url_for('send_otp', email=email, username=username))
     return render_template('register.html')
-@app.route("/send-otp/<string:email>")
-def send_otp(email):
+@app.route("/send-otp/<string:email>/<string:username>")
+def send_otp(email, username):
     msg = Message(
         subject="Email Verification OTP",
         recipients=[email],
@@ -61,7 +61,7 @@ def send_otp(email):
     # You can also send HTML content
     otp=session.get("otp")
     if otp:
-        msg.html = "<p>Hello, Thank you for signing up! Please verify your email address by using the OTP code below: </p><div style='width:200px; background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;'>"+otp+"</div>"
+        msg.html = "<p>Hello "+username+",<br>Thank you for signing up! Please verify your email address by using the OTP code below: </p><div style='width:200px; background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;'>"+otp+"</div>"
         mail.send(msg)
         session.clear()
         return render_template('otp.html')
