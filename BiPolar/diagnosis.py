@@ -9,7 +9,8 @@
 # Having over confidence in your abilities
 # Engaging in risky activities
 import numpy as np
-import activation_utility as act
+from BiPolar import activation_utility as act
+import pickle
 def initialize_network_parameters():
     inputSize=7 # number of input neurons
     hiddenSize=3 # number of hidden neurons
@@ -74,4 +75,18 @@ def train_model():
     # Plot error
     act.graph_error(error_list)
     # return weights and biases
+    my_model=w1,b1,w2,b2
+    #save model parameters to a file
+    with open("bipolar_model.pkl", "wb") as file:
+        pickle.dump(my_model, file)
+def load_model():
+    with open("bipolar_model.pkl", "rb") as file:
+        w1, b1, w2, b2 = pickle.load(file)
     return w1, b1, w2, b2
+def predict(symptoms):
+    w1, b1, w2, b2 = load_model()
+    z1 = np.dot(w1, symptoms) + b1  # Weighted sum for hidden layer
+    a1 = act.relu(z1)  # ReLU activation for hidden layer
+    z2 = np.dot(w2, a1) + b2  # Weighted sum for output layer
+    a2 = act.sigmoid(z2)  # Sigmoid activation for output layer
+    return a2

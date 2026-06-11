@@ -52,3 +52,9 @@
 .analysis-results{
     display: none;
 }
+.keywords-result{
+    max-width: 30ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

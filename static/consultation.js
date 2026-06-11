@@ -1,8 +1,13 @@
 function titleCase(s) {
-    return s.toLowerCase()
-            .split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
+    try{
+        return s.toLowerCase()
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+    } catch (error) {
+        window.console && console.error('Error in titleCase function:', error);
+        return s; // Return the original string if there's an error
+    }
 }
 $(document).ready(function() {
     window.console && console.log('Consultation page loaded');
@@ -114,6 +119,10 @@ $(document).ready(function() {
                 }
                 //$('.analysis-results').show();
                 $('.analysis-results').slideDown(800,'swing',function(){console.log('EOF');});
+            },
+            error: function(xhr, status, error) {
+                    window.console && console.error('Error:', error);
+                    alert('An error occurred while analyzing the text. You text did not return any results. Please try again.');
             }
         });
     }); 

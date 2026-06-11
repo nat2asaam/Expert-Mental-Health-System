@@ -16,7 +16,7 @@ import numpy as np
 # Having over confidence in your abilities
 # Engaging in risky activities
 # This scripts uses the Keras Library to build a neural network model for regression. The model is trained on a dataset of 128 samples, where each sample represents a combination of the 7 symptoms and the corresponding likelihood of having bipolar disorder. The dataset is generated using numpy, where the input features are binary (0 or 1) indicating the presence or absence of each symptom, and the target variable is the mean of the input features, representing the likelihood of having bipolar disorder. The model is trained for 100 epochs with a validation split of 30%.
-def classification_model():
+def classification_model(n_cols):
     model = Sequential()
     model.add(Input(shape=(n_cols,)))
     model.add(Dense(100, activation='relu'))
@@ -39,7 +39,7 @@ def train_model():
 
     n_cols=X.shape[1]
     print("Number of classes: ", n_cols)
-    model=classification_model()
+    model=classification_model(n_cols)  
     history=model.fit(X,target,validation_split=0.2,epochs=100,verbose=2)
     scores=model.evaluate(X, target, verbose=0)
     print('Accuracy: {} \n Error: {}'.format(scores[1], 1 - scores[1]))   
@@ -51,3 +51,10 @@ def train_model():
     prediction=model.predict(random_sample)
     print('Prediction: {} and sample: {}'.format(prediction, random_sample))
     model.save('bipolar_classification_model.keras')
+def load_model():
+    loaded_model = keras.models.load_model('bipolar_classification_model.keras')
+    return loaded_model
+def predict_bipolar_disorder(symptoms):
+    loaded_model = load_model()
+    prediction = loaded_model.predict(symptoms)
+    return prediction
