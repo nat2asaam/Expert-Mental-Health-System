@@ -58,3 +58,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+#modal-form h4{
+    font-size:12px !important;
+}

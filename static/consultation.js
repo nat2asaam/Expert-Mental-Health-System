@@ -80,42 +80,44 @@ $(document).ready(function() {
                     $('#keyword2').text('N/A');
                     $('#sentiment2').text('N/A').removeClass('text-success text-warning'); 
                     $('#emotion2').text('N/A');
-                }    
-                $('#keyword2').text(titleCase(keyword2.text));
-                $('#sentiment2').text(titleCase(keyword2.sentiment.label));
-                if(keyword2.sentiment.label=='positive'){
-                    $('#sentiment2').removeClass('text-warning').addClass('text-success');
-                } else if(keyword2.sentiment.label=='negative'){
-                    $('#sentiment2').removeClass('text-success').addClass('text-warning');
-                }
-                else{
-                    $('#sentiment2').removeClass('text-success text-warning');
-                }
-                var emotion2=keyword2.emotion || 'N/A';
-                var emotion2Label="Anger";
-                var currentEmotionValue2=emotion2.anger;
-                if(currentEmotionValue2<emotion2.joy){
-                    emotion2Label="Joy";
-                    currentEmotionValue2=emotion2.joy;
-                }
-                if(currentEmotionValue2<emotion2.fear){
-                    emotion2Label="Fear";
-                    currentEmotionValue2=emotion2.fear;
-                }
-                if(currentEmotionValue2<emotion2.sadness){
-                    emotion2Label="Sadness";
-                    currentEmotionValue2=emotion2.sadness;
-                }
-                if(currentEmotionValue2<emotion2.disgust){
-                    emotion2Label="Disgust";
-                    currentEmotionValue2=emotion2.disgust;
-                }
-                $('#emotion2').text(titleCase(emotion2Label));
-                if(emotion2Label=='Joy'){
-                    $('#emotion2').removeClass('text-danger').addClass('text-info');
-                }
-                else{
-                    $('#emotion2').removeClass('text-info').addClass('text-danger');
+                }  
+                else{  
+                    $('#keyword2').text(titleCase(keyword2.text));
+                    $('#sentiment2').text(titleCase(keyword2.sentiment.label));
+                    if(keyword2.sentiment.label=='positive'){
+                        $('#sentiment2').removeClass('text-warning').addClass('text-success');
+                    } else if(keyword2.sentiment.label=='negative'){
+                        $('#sentiment2').removeClass('text-success').addClass('text-warning');
+                    }
+                    else{
+                        $('#sentiment2').removeClass('text-success text-warning');
+                    }
+                    var emotion2=keyword2.emotion || 'N/A';
+                    var emotion2Label="Anger";
+                    var currentEmotionValue2=emotion2.anger;
+                    if(currentEmotionValue2<emotion2.joy){
+                        emotion2Label="Joy";
+                        currentEmotionValue2=emotion2.joy;
+                    }
+                    if(currentEmotionValue2<emotion2.fear){
+                        emotion2Label="Fear";
+                        currentEmotionValue2=emotion2.fear;
+                    }
+                    if(currentEmotionValue2<emotion2.sadness){
+                        emotion2Label="Sadness";
+                        currentEmotionValue2=emotion2.sadness;
+                    }
+                    if(currentEmotionValue2<emotion2.disgust){
+                        emotion2Label="Disgust";
+                        currentEmotionValue2=emotion2.disgust;
+                    }
+                    $('#emotion2').text(titleCase(emotion2Label));
+                    if(emotion2Label=='Joy'){
+                        $('#emotion2').removeClass('text-danger').addClass('text-info');
+                    }
+                    else{
+                        $('#emotion2').removeClass('text-info').addClass('text-danger');
+                    }
                 }
                 //$('.analysis-results').show();
                 $('.analysis-results').slideDown(800,'swing',function(){console.log('EOF');});

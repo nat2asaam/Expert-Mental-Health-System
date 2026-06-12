@@ -88,8 +88,8 @@
                                         </div>
                                     </div>
                                      <button class="btn btn-outline-success mt-2">Save Results</button>
-                                    <button class="btn btn-outline-secondary mt-2">View Detailed Analysis</button>
-                                    <button class="btn btn-outline-secondary mt-2">View Historical Analysis</button>
+                                    <button class="btn btn-outline-secondary mt-2" data-toggle="modal" data-target="#popupFormModal" style="cursor:pointer;">View Detailed Analysis</button>
+                                    <button class="btn btn-outline-secondary mt-2" data-toggle="modal" data-target="#popupFormModal" style="cursor:pointer;">View Historical Analysis</button>
                                 </div>
                             </div>    
                         </div>
@@ -129,6 +129,36 @@
         </div>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!-- Use the full jQuery version and the bundled Bootstrap 4.6 JS -->
-        
+        <!-- 2. THE POPUP MODAL CONTAINER -->                
+<div class="modal fade" id="popupFormModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detailed Emotion Detection & Sentiment Analysis Report</h5>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form id=""modal-form>
+            <div>
+                <b>Detailed Sentiment Report</b>
+                <div>
+
+                </div>
+            </div>
+            <div>
+                <b>Detailed Emotion Report</b>
+                <div>
+
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
     </body>
 </html>
