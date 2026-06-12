@@ -58,10 +58,18 @@ def send_otp(email, username):
         recipients=[email],
         body="This is a test email sent from a Flask application using Flask-Mail."
     )
+    with app.open_resource("static/images/equicksales-emedics-360-banner.png") as fp:
+        msg.attach(
+            filename="equicksales-emedics-360-banner.png",
+            content_type="image/png",
+            data=fp.read(),
+            disposition="inline",
+            headers={"Content-ID": "<company_header>"}  # Note the brackets <> around the ID
+        )
     # You can also send HTML content
     otp=session.get("otp")
     if otp:
-        msg.html = "<p>Hello "+username+",<br>Thank you for signing up! Please verify your email address by using the OTP code below: </p><div style='width:200px; background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;'>"+otp+"</div>"
+        msg.html = "<div style='width:80%;'><h2>OTP Verification for Equicksales Emedics 360 - Mental Health Diagnosis System</h2><img src='equicksales-emedics-360-banner.png'></div><div style='width:80%; margin:20;padding:20px auto; background-color:#f2f2f2;height:400px;'><p style='font-family: Arial, sans-serif; font-size: 16px; color: #333; width: 60%; margin:0 auto'><br>Hello "+username+",<br><br>Thank you for signing up for Equicksales Emedics 360 System! Please verify your email address by using the OTP code here: <span style='width:100px; top: 5; background-color: #fafafa; padding: 10px; border: 1px solid #ccc; margin-top:5px;'>"+otp+"</span></p></div><div style='margin:0 auto'>@2026. Equicksale Consulting Ltd. All Rights reserved</div>"
         mail.send(msg)
         session.clear()
         return render_template('otp.html')
