@@ -69,10 +69,10 @@ def send_otp(email, username):
     # You can also send HTML content
     otp=session.get("otp")
     if otp:
-        msg.html = "<div style='width:80%;'><h2>OTP Verification for Equicksales Emedics 360 - Mental Health Diagnosis System</h2><img src='equicksales-emedics-360-banner.png'></div><div style='width:80%; margin:20;padding:20px auto; background-color:#f2f2f2;height:400px;'><p style='font-family: Arial, sans-serif; font-size: 16px; color: #333; width: 60%; margin:0 auto'><br>Hello "+username+",<br><br>Thank you for signing up for Equicksales Emedics 360 System! Please verify your email address by using the OTP code here: <span style='width:100px; top: 5; background-color: #fafafa; padding: 10px; border: 1px solid #ccc; margin-top:5px;'>"+otp+"</span></p></div><div style='margin:0 auto'>@2026. Equicksale Consulting Ltd. All Rights reserved</div>"
+        msg.html = "<div style='width:80%;'><h2>OTP Verification for Equicksales Emedics 360 - Mental Health Diagnosis System</h2><img src='equicksales-emedics-360-banner.png'></div><div style='width:80%; margin:20;padding:20px auto; background-color:#f2f2f2;height:400px;'><p style='font-family: Arial, sans-serif; font-size: 16px; color: #333; width: 60%; margin:0 auto'><br>Hello "+username+",<br><br>Thank you for signing up for Equicksales Emedics 360 System! Please verify your email address by using the OTP code here: <br><br><span style='width:100px; margin-top:20px; background-color: #fafafa; padding: 10px; border: 1px solid #ccc;'>"+otp+"</span></p></div><div style='margin:0 auto'>@2026. Equicksale Consulting Ltd. All Rights reserved</div>"
         mail.send(msg)
         session.clear()
-        return render_template('otp.html')
+        return render_template('otp.html',email=email)
     return "OTP not found in cookies", 400
 @app.route('/verify-otp', methods=['POST'])
 def verify_otp():
