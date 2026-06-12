@@ -7,6 +7,7 @@ import random
 import json
 from datetime import datetime, timedelta
 from SentimentAndEmotion.sentiment_and_emotion import analyze_text
+from BiPolar import diagnosis, diagnosis_keras, diagnosis_keras_classification
 app = Flask(__name__)
 app.secret_key = 'ga91nxvdgdt^&anaiete5%' # Use a long, random string in production
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -132,9 +133,47 @@ def analyze_data_text():
     usage = json_result.get('usage', {})
     #return json_result
     return jsonify({'text': f'Analysis result for: {text}', 'keywords': keywords, 'entities': entities, 'usage': usage})
+@app.route("/train_regression_model",methods=['POST'])
+def train_regression_model():
+    username=session.get("username")
+    if not username:
+        return redirect(url_for('index'))
+    diagnosis.train_model()
+@app.route("/train_keras_regression_model",methods=["POST"])
+def train_keras_regression_model():
+    username=session.get("username")
+    if not username:
+        return redirect(url_for('index'))
+    diagnosis_keras.train_model()
+@app.route("/train_keras_classification_model",methods=['POST'])
+def train_keras_classification_model():
+    username=session.get("username")
+    if not username:
+        return redirect(url_for('index'))
+    diagnosis_keras_classification.train_model()
+@app.route("/predict_regression/<string:type>")
+def predict_regression(type):
+    username=session.get("username")
+    if not username:
+        return redirect(url_for('index'))
+    symptoms=request.form.get("symptoms")
+    if type=="keras":
+        result=diagnosis.predict(symptoms)
+    else: 
+        result=diagnosis_keras.predict(symptoms)
+    return jsonify({"result":result})
+@app.route("/predict_classification")
+def predict_classification():
+    username=session.get("username")
+    if not username:
+        return redirect(url_for('index'))
+    symptoms=request.form.get("symptoms")
+    result=diagnosis_keras_classification.predict(symptoms)
+    return jsonify({"result":result})
+
 if __name__ == '__main__':
     # Create the database tables before starting the app
     with app.app_context():
         db.create_all()
-    app.run(debug=True,host='0.0.0.0',port=8080)
+    app.run(debug=True,host='0.0.0.0',port=80) 
 
