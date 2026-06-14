@@ -1,0 +1,5 @@
+tf_env/
+.venv/
+venv/
+*.pyc
+__pycache__/
