@@ -19,5 +19,6 @@ class Patient(db.Model):
     hometown = db.Column(db.String(100), nullable=False)
     date_of_birth = db.Column(db.Date, nullable=False)
     gender = db.Column(db.String(20), nullable=False)
+    phoneNumber=db.Column(db.String(15), nullable=True)
     def __repr__(self):
         return f'<User {self.firstname}> {self.lastname}'

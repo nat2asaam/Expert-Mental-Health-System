@@ -61,17 +61,37 @@
 #modal-form h4{
     font-size:12px !important;
 }
-.popup-form {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+
+/* 1. Base Setup: Completely remove Bootstrap's default dark backdrop background */
+#prescriptionPopupModal {
+    background: transparent !important;
+    pointer-events: none; /* Allows you to click behind it when it's closed */
+    display: block !important; /* Keep it in the DOM structure */
+    opacity: 1 !important;
 }
-.form-container {
-  max-width: 300px;
-  padding: 20px;
-  background-color: #f1f1f1;
-  border-radius: 8px;
+
+/* 2. Position the sheet off-screen below the browser window */
+#prescriptionPopupModal .modal-dialog {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    margin: 0;
+    width: 100%;
+    max-width: 550px;
+    z-index: 2000;
+    transform: translate(-50%, 100%) !important; /* Shifted completely down */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    pointer-events: auto; /* Restores clicking inside the form box itself */
+}
+
+/* 3. The Active State: When our JS adds the 'show-sheet' class, slide it into view */
+#prescriptionPopupModal.show-sheet .modal-dialog {
+    transform: translate(-50%, 0) !important;
+}
+
+/* 4. Make it look like a clean modern panel sheet */
+#prescriptionPopupModal .modal-content {
+    border-radius: 16px 16px 0 0;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.08); /* Soft white/gray drop shadow */
 }

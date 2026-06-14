@@ -1,13 +1,13 @@
-const prescriptionBtn = document.getElementById('prescription-btn');
-const closeBtn = document.getElementById('close-btn');
-const popupForm = document.getElementById('prescription-form');
+$(document).ready(function () {
+    // 1. Listen for the click event to slide the sheet up
+    $(document).on('click', '#prescriptions-btn', function (e) {
+        e.preventDefault();
+        $('#prescriptionPopupModal').addClass('show-sheet');
+    });
 
-// Show the form when button is clicked
-prescriptionBtn.addEventListener('click', () => {
-  popupForm.style.display = 'block';
-});
-
-// Hide the form when the close button is clicked
-closeBtn.addEventListener('click', () => {
-  popupForm.style.display = 'none';
+    // 2. Listen for the close actions (X button or Close button) to slide it down
+    $(document).on('click', '#prescriptionPopupModal [data-dismiss="modal"]', function (e) {
+        e.preventDefault();
+        $('#prescriptionPopupModal').removeClass('show-sheet');
+    });
 });

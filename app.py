@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request,jsonify,redirect,url_for,make_response,session
 from werkzeug.security import check_password_hash, generate_password_hash
 from extensions import db
+from models import Patient
 from models import User,Patient
 from flask_mail import Mail, Message
 import random
@@ -115,12 +116,16 @@ def analytics():
     if not username:
         return redirect(url_for('index'))
     return render_template('analytics.html',username=username)
-@app.route('/patients')    
-def patients():
+@app.route('/patients/<int:page>/<int:items_per_page>')    
+def patients(page, items_per_page):
     username = session.get('username')
     if not username:
         return redirect(url_for('index'))
-    return render_template('patients.html',username=username)
+
+    offset_value = (page - 1) * items_per_page
+    # Pull the next 10 records
+    items = Patient.query.order_by(Patient.id.asc()).offset(offset_value).limit(items_per_page).all()
+    return render_template('patients.html',username=username,items=items)
 @app.route("/consultations")
 def consultations():
     username=session.get("username")
@@ -174,6 +179,22 @@ def predict_classification():
     symptoms=request.form.get("symptoms")
     result=diagnosis_keras_classification.predict(symptoms)
     return jsonify({"result":result})
+@app.route("/add-new-patient")
+def new_patient():
+    username=session.get("username")
+    if not username:
+        return redirect(url_for('index'))
+    patientID=request.form.get("patientID")
+    firstname=request.form.get("firstname")
+    lastname=request.form.get("lastname")
+    dat_of_birth=request.form.get("date_of_birth")
+    gender=request.form.get("gender")
+    hometown=request.form.get("hometwon")
+    phoneNumber=request.form.get("phoneNumber")
+    new_patient=Patinet(patientID=patientID,firstname=firstname,lastname=lastname,date_of_birth=date_of_birth,gender=gender, hometown=hometown,phoneNumber=phoneNumber)
+    db.session.add(new_patient)
+    db.session.commit()
+    return "success"
 
 if __name__ == '__main__':
     # Create the database tables before starting the app

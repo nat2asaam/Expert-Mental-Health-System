@@ -6,7 +6,8 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='patients.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="{{url_for('static', filename='patients.js')}}"></script>
     </head>
     <body>
         <!-- Added space between lg and navbar-dark, and added text-white to the brand -->
@@ -44,7 +45,7 @@
                     <div class="nav flex-column mt-3">
                         <a class="nav-link active" href="/dashboard"> <i class="fa-solid fa-house"></i> Home</a>
                         <a class="nav-link" href="/analytics"><i class="fas fa-chart-line"></i> Analytics</a>
-                        <a class="nav-link" href="/patients"><i class="fas fa-user-plus"></i> Patients</a>
+                        <a class="nav-link" href="/patients/1/10"><i class="fas fa-user-plus"></i> Patients</a>
                         <a class="nav-link" href="/consultations"><i class="fa-solid fa-notes-medical"></i> Consultation</a>
                         <a class="nav-link" href="/prescriptions"><i class="fas fa-prescription"></i> Prescription</a>
                         <a class="nav-link" href="/labs"><i class="fa fa-user-md"></i> Labs</a>
@@ -55,12 +56,8 @@
                 </div>
                 <!-- Main Content Area -->
                 <div class="col-md-10 p-4">
-                    <h2>Welcome to your Patients Records</h2>
-                    <p>Patient contents</p>
-                    
                      <div class="row">
                         <div class="col-md-7">
-                            <h5>Patient List</h5>
                             <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Enter Patient ID to Search for..." aria-label="Search">
                         <div class="input-group-append">
@@ -90,6 +87,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for item in items_list %}
                                         <tr>
                                         <th scope="row">1</th>
                                             <td>Mark</td>
@@ -101,17 +99,8 @@
                                             </td>  
 
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td colspan="2">Larry the Bird</td>
-                                            <td></td>
-                                        </tr>
+                                        {% endfor %}
+                    
                                     </tbody>
                                 </table>
                             </div>
@@ -136,30 +125,34 @@
                             <div class="add-patient">
                                 <form method="POST">
                                     <div class="form-group">
-                                        <label for="patientID">Patient ID</label>
-                                        <input type="text" class="form-control" id="patientID" name="patient_id" placeholder="Enter patient ID">    
-                                    </div>
-                                    <div class="form-group">
                                         <label for="firstName">First Name</label>
-                                        <input type="text" class="form-control" id="firstName" name="first_name" placeholder="Enter first name">    
+                                        <input type="text" class="form-control" id="firstName" name="first_name" placeholder="Enter firstname">    
                                     </div>
                                     <div class="form-group">
                                         <label for="lastName">Last Name</label>
-                                        <input type="text" class="form-control" id="lastName" name="last_name" placeholder="Enter last name">
+                                        <input type="text" class="form-control" id="lastName" name="last_name" placeholder="Enter lastname">
                                     </div>
                                     <div class="form-group">
                                         <label for="date_of_birth">Date of Birth</label>
-                                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
+                                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" placeholder="Enter date of birth">
                                     </div>
                                     <div class="form-group">
                                         <label for="gender">Gender</label>
-                                        <input type="text" class="form-control" id="gender" name="gender" placeholder="Enter gender">
+                                        <Select class="form-control" id="gender" name="gender" placeholder="Enter gender">
+                                            <option value=""0>Select option</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </Select>
                                     </div>
                                     <div class="form-group">
                                         <label for="hometown">Hometown</label>
                                         <input type="text" class="form-control" id="hometown" name="hometown" placeholder="Enter hometown"> 
                                     </div>
-                                    <button type="button" class="btn btn-primary">Add Patient</button>
+                                     <div class="form-group">
+                                        <label for="phone_number">Phone Number</label>
+                                        <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter Phone Number"> 
+                                    </div>
+                                    <button type="button" class="btn btn-primary" id="btn-add-patient">Add Patient</button>
                                 </form>
                             </div>
                         </div>
