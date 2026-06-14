@@ -21,3 +21,10 @@
     width: 100%;
     border-collapse: collapse;
 }
+.num-per-page{
+    width:100px !important;
+    height:40px !important;
+    box-sizing: border-box !important;
+    margin-left: 20px;
+   /* padding:10px;*/
+}

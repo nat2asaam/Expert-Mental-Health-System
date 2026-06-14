@@ -7,6 +7,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.0.0-dist/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='consultation.css') }}">
     <style>
         body {
         /* Steps out of /css/ and into /images/ */
@@ -39,6 +40,7 @@
             <ol>
                 <li><a href="/register">Register</a></li>
                 <li><a href="#">Forgot Password?</a></li>
+                <li><a href="#" class="text-danger">{{error}}</a></li>
             </ol>
             
         </form>

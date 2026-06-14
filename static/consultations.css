@@ -11,10 +11,10 @@
     float: right;
 }
 .col-md-2{
-     height: 110vh;
+     height: 300px;
 }
 .col-md-6 .sentiment-and-emotion{
-    height: 70vh;
+    height: 600px;
 }
 .patient-list table{
     width: 100%;
@@ -60,4 +60,18 @@
 }
 #modal-form h4{
     font-size:12px !important;
+}
+.popup-form {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.form-container {
+  max-width: 300px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
 }

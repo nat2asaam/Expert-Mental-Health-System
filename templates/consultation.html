@@ -9,6 +9,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="{{ url_for('static', filename='consultation.js') }}"></script>
+        
     </head>
     <body>
         <!-- Added space between lg and navbar-dark, and added text-white to the brand -->
@@ -57,9 +58,6 @@
                 </div>
                 <!-- Main Content Area -->
                 <div class="col-md-10 p-4">
-                    <h2>Welcome to your Consultations</h2>
-                    <p>Consultation contents</p>
-                
                      <div class="row">
                         <div class="col-md-6">
                             <h5>Sentiment Analysis & Emotion Detector</h5>
@@ -121,8 +119,8 @@
                                         <textarea class="form-control" id="consultationNotes" name="consultation_notes" placeholder="Enter consultation notes" rows="4"></textarea>
                                     </div>
                                     <button type="button" class="btn btn-primary">Add Consultation</button>
-                                    <button type="button" class="btn btn-outline-info">Add Labs</button>
-                                    <button type="button" class="btn btn-outline-secondary">Add Prescription</button>
+                                    <button type="button" class="btn btn-outline-info" id="labs-btn">Add Labs</button>
+                                    <button type="button" class="btn btn-outline-secondary" id="prescriptions-btn">Add Prescription</button>
                                 </form>
                             </div>
                         </div>
@@ -131,7 +129,7 @@
         </div>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <!-- Use the full jQuery version and the bundled Bootstrap 4.6 JS -->
-        <!-- 2. THE POPUP MODAL CONTAINER -->                
+        
 <div class="modal fade" id="popupFormModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -161,6 +159,40 @@
       </div>
     </div>
   </div>
+  <!-- 2. THE POPUP MODAL CONTAINER -->       
+<div id="prescription-form" class="popup-form">
+  <form class="form-container">
+    <h2>Add Prescription</h2>
+    <div class="input-group"> 
+        <label for="presscription-date"><b>Date</b></label>
+        <input type="date" required class="form-control" id=""prescription-date>
+    </div>
+    <div class="input-group"> 
+        <label for="medication"><b>Medication</b></label>
+        <input type="text" required class="form-control" id=""medication>
+    </div>
+    <div class="input-group"> 
+        <label for="dosag"><b>Dosage </b></label>
+        <select required class="form-control" id="dosage">
+            <option>Table</option>
+            <option>Syrup</option>
+            <option>Capsule</option>
+            <option>Ointment</option>
+        </select>
+    </div>
+    <div class="input-group"> 
+        <label for="qunatity"><b>Quantity</b></label>
+        <input type="text" required class="form-control" id="quantity">
+    </div>
+        <div class="input-group"> 
+        <label for="direction"><b>Direction for Use</b></label>
+        <textarea required class="form-control" id="direction"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Send</button>
+    <button type="button" class="btn btn-danger" id="close-btn">Close</button>
+  </form>
+</div> 
+<script src="{{ url_for('static', filename='prescription.js') }}"></script>
 </div>
     </body>
 </html>

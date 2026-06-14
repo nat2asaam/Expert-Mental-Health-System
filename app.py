@@ -8,6 +8,7 @@ import json
 from datetime import datetime, timedelta
 from SentimentAndEmotion.sentiment_and_emotion import analyze_text
 from BiPolar import diagnosis, diagnosis_keras, diagnosis_keras_classification
+from sqlalchemy.exc import SQLAlchemyError
 app = Flask(__name__)
 app.secret_key = 'ga91nxvdgdt^&anaiete5%' # Use a long, random string in production
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -39,19 +40,22 @@ def dummy_register():
     return jsonify({'message': f'User {username} registered successfully'})
 @app.route("/register", methods=['GET','POST'])
 def register():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        email = request.form.get("email")
-        hashed_password = generate_password_hash(password)
-        one_hour_from_now = datetime.now() + timedelta(hours=1)
-        otp="".join([str(random.randint(0, 9)) for _ in range(6)])
-        new_user = User(username=username, email=email, password=hashed_password,otp_expiry=one_hour_from_now,otp=otp,active=False)
-        db.session.add(new_user)
-        db.session.commit()
-        session["otp"]=otp
-        return redirect(url_for('send_otp', email=email, username=username))
-    return render_template('register.html')
+    try:
+        if request.method == 'POST':
+            username = request.form.get('username')
+            password = request.form.get('password')
+            email = request.form.get("email")
+            hashed_password = generate_password_hash(password)
+            one_hour_from_now = datetime.now() + timedelta(hours=1)
+            otp="".join([str(random.randint(0, 9)) for _ in range(6)])
+            new_user = User(username=username, email=email, password=hashed_password,otp_expiry=one_hour_from_now,otp=otp,active=False)
+            db.session.add(new_user)
+            db.session.commit()
+            session["otp"]=otp
+            return redirect(url_for('send_otp', email=email, username=username))
+    except SQLAlchemyError:
+        return render_template('register.html',error="Account already exist")
+    return render_template('register.html',error="")
 @app.route("/send-otp/<string:email>/<string:username>")
 def send_otp(email, username):
     msg = Message(
@@ -59,9 +63,9 @@ def send_otp(email, username):
         recipients=[email],
         body="This is a test email sent from a Flask application using Flask-Mail."
     )
-    with app.open_resource("static/images/equicksales-emedics-360-banner.png") as fp:
+    with app.open_resource("static/images/equicksalesemedics360banner.png") as fp:
         msg.attach(
-            filename="equicksales-emedics-360-banner.png",
+            filename="equicksalesemedics360banner.png",
             content_type="image/png",
             data=fp.read(),
             disposition="inline",
@@ -70,7 +74,7 @@ def send_otp(email, username):
     # You can also send HTML content
     otp=session.get("otp")
     if otp:
-        msg.html = "<div style='width:80%;'><h2>OTP Verification for Equicksales Emedics 360 - Mental Health Diagnosis System</h2><img src='equicksales-emedics-360-banner.png'></div><div style='width:80%; margin:20;padding:20px auto; background-color:#f2f2f2;height:400px;'><p style='font-family: Arial, sans-serif; font-size: 16px; color: #333; width: 60%; margin:0 auto'><br>Hello "+username+",<br><br>Thank you for signing up for Equicksales Emedics 360 System! Please verify your email address by using the OTP code here: <br><br><span style='width:100px; margin-top:20px; background-color: #fafafa; padding: 10px; border: 1px solid #ccc;'>"+otp+"</span></p></div><div style='margin:0 auto'>@2026. Equicksale Consulting Ltd. All Rights reserved</div>"
+        msg.html = "<div style='width:80%;'><h2>OTP Verification for Equicksales Emedics 360 - Mental Health Diagnosis System</h2><img src='equicksalesemedics360banner.png'></div><div style='width:80%; margin:20;padding:20px auto; background-color:#f2f2f2;height:400px;'><p style='font-family: Arial, sans-serif; font-size: 16px; color: #333; width: 60%; margin:0 auto'><br>Hello "+username+",<br><br>Thank you for signing up for Equicksales Emedics 360 System! Please verify your email address by using the OTP code here: <br><br><span style='width:100px; margin-top:20px; background-color: #fafafa; padding: 10px; border: 1px solid #ccc;'>"+otp+"</span></p></div><div style='margin:0 auto'>@2026. Equicksale Consulting Ltd. All Rights reserved</div>"
         mail.send(msg)
         session.clear()
         return render_template('otp.html',email=email)
@@ -98,7 +102,7 @@ def login():
             session['username'] = username
             if user.active:
                 return redirect(url_for('dashboard'))
-    return jsonify({'message': 'Invalid username or password'}), 401
+    return render_template("index.html",error="Invalid credentials")
 @app.route('/dashboard')
 def dashboard():
     username = session.get('username')
